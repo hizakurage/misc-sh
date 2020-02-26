@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+use strict;
+
+# support 1970/01/01 09:00:00 - 2286/11/21 02:46:39
+
+my $second = shift;
+
+my $msec   = ($second =~ s/(.*)m$/\1/);
+my $usec   = ($second =~ s/(.*)u$/\1/);
+
+if ($msec) {
+    $second /= 1000;
+    $second =~ s|(\d+)\.\d+|\1|
+} elsif ($usec) {
+    $second /= 1000000;
+    $second =~ s|(\d+)\.\d+|\1|
+} else {
+    my $count  = ($second =~ tr/0-9//);
+    $second = substr($second, 0, 10) if ($count > 10);
+}
+
+my @time=localtime($second);
+printf("%d/%02d/%02d %02d:%02d:%02d\n",@time[5]+1900,@time[4]+1,@time[3],@time[2],@time[1],@time[0]);

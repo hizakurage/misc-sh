@@ -1,0 +1,32 @@
+#!/bin/sh
+if [ "$1" = "" ]; then
+    echo "no argument"
+    exit
+fi
+
+span=$1
+
+# usage
+#   msleep <milli secconds>
+#     <milli seconds> : (10 - )
+#
+#   ex) $ msleep 30  # sleep in 0.03 seconds
+#       $ msleep 100 # sleep in 0.1 seconds
+
+get_current_millis ()
+{
+    current=`cat /proc/uptime | cut -d ' ' -f 1`
+    current_millis=`echo "$current * 1000" | bc `
+    echo $current_millis
+#    echo `cat /proc/uptime | cut -d ' ' -f 1`
+}
+
+echo `get_current_millis`
+
+#while :
+#do
+#    current=`get_current`
+#    diff=`echo "($current - $START)*10" | bc`
+#    echo $diff
+#done
+

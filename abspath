@@ -1,0 +1,12 @@
+#!/bin/sh
+# -*- mode: shell-script -*-
+
+# Print absolute path of given file or directory
+#
+# Input types:
+
+[ -z "$1" ] && exit 1
+[ ! -e "$1" ] && echo No such file or directory && exit 1
+[ -f $1 ] && path=$(cd $(dirname $1) && pwd)/$(basename $1) || path=$(cd $1 && pwd)
+[ -e $path ] && echo $path && exit 0
+exit 1

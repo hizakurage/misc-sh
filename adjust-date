@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Need to run as root
+date --set @"$(wget -q https://ntp-a1.nict.go.jp/cgi-bin/jst -O - | sed -n 4p | cut -d. -f1)"
